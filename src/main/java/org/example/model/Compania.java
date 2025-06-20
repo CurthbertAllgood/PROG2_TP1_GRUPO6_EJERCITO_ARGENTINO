@@ -1,11 +1,13 @@
-package org.example;
+package org.example.model;
+
+import org.example.usuario.USoldado;
 
 import java.util.List;
 
 public class Compania {
-    private int numeroCompania;
+    private int numero;
     private String actividadPrincipal;
-    private List<Soldado> soldados;
+    private List<USoldado> soldados;
     private List<Cuartel> cuarteles;
 
 }

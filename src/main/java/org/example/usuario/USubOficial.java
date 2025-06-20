@@ -1,4 +1,4 @@
-package org.example;
+package org.example.usuario;
 
 public class USubOficial extends Usuario {
 }

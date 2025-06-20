@@ -1,7 +1,7 @@
-package org.example;
+package org.example.usuario;
 
 public abstract class Usuario {
-    private Soldado soldado;
+    private USoldado soldado;
     private String user;
     private String password;
 
