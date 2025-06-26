@@ -1,19 +1,19 @@
 package org.example.persistencia;
 
-import org.example.model.Soldado;
+import org.example.model.Militar;
 
 import java.util.List;
 
-public class PersistenciaTextoSoldado implements Persistencia<Soldado> {
+public class PersistenciaTextoSoldado implements Persistencia<Militar> {
 
 
     @Override
-    public void guardar(Soldado entidad) {
+    public void guardar(Militar entidad) {
 
     }
 
     @Override
-    public List<Soldado> cargar() {
+    public List<Militar> cargar() {
         return List.of();
     }
 }

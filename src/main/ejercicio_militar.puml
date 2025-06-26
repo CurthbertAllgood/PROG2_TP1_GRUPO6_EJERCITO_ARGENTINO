@@ -1,35 +1,72 @@
 @startuml
+top to bottom direction
 
-' ===== ENUMERACIÓN =====
-
-enum Grado {
-  SOLDADO
-  SUBOFICIAL
-  OFICIAL
+' ===== ENUMERACIONES =====
+enum CuerposEjercito {
+  INFANTERIA
+  ARTILLERIA
+  ARMADA
 }
 
-' ===== ENTIDADES PRINCIPALES =====
+' ===== CLASES MILITAR Y USUARIOS =====
+abstract class Militar {
 
-class Soldado {
-    -codigo: String
-    -nombre: String
-    -apellidos: String
-    -graduacion: Grado
     -cuerpo: Cuerpo
     -compania: Compania
     -cuartel: Cuartel
     -serviciosRealizados: List<ServicioRealizado>
 }
 
+class Soldado
+class Suboficial
+class Oficial
+Militar <|-- Soldado
+Militar <|-- Suboficial
+Militar <|-- Oficial
+
+class Civil{
+
+}
+
+class Limpieza extends Servicio
+class Mantenimiento extends Servicio
+
+class Usuario {
+    -user: String
+    -password: String
+    -codigo: String
+    -nombre: String
+    -apellidos: String
+    +login(): void
+    }
+Usuario --> Militar
+
+Civil --|> Usuario
+
+' ===== FÁBRICAS =====
+interface UsuarioFactory {
+    +crearUsuario(): Usuario
+}
+
+class MilitarFactory {
+    +crearMilitar(grado: Grado): Militar
+}
+class UsuarioFactory {
+    +crearUsuario(tipo: String, usuario: String, contrasena: String, militar: Militar): Usuario
+}
+
+' ===== RESTO DEL MODELO =====
 class Cuerpo {
+    -cuerpo: CuerposEjercito
     -codigo: String
     -denominacion: String
 }
+Cuerpo --> CuerposEjercito
 
 class Compania {
     -numero: int
     -actividadPrincipal: String
-    -soldados: List<Soldado>
+    -soldados: List<Militar>
     -cuarteles: List<Cuartel>
 }
 
@@ -46,26 +83,35 @@ class Servicio {
 }
 
 class ServicioRealizado {
-    -soldado: Soldado
+    -soldado: Militar
     -servicio: Servicio
     -fecha: LocalDate
 }
 
-' ===== INTERFACES SEGREGADAS SIN HERENCIA =====
-
+' ===== INTERFACES =====
 interface ConsultaSoldado {
     +consultarSoldado(codigo: String): void
 }
 
-interface GestionSoldado {
+interface ModificacionSoldado {
+    +modificarSoldado(s: Soldado): void
+}
+
+interface AltaBajaSoldado {
     +crearSoldado(s: Soldado): void
     +eliminarSoldado(codigo: String): void
-    +modificarSoldado(s: Soldado): void
 }
 
 interface GestionCuartel {
     +crearCuartel(c: Cuartel): void
     +eliminarCuartel(codigo: String): void
+    +modificarCuartel()cuartel: Cuartel): void
+}
+
+interface GestionCuerpo{
+    +crearCuerpo(cuerpo: Cuerpo): void
+    +eliminarCuerpo(numero: int): void
+    +modificarCuerpo()cuerpo: Cuerpo): void
 }
 
 interface GestionCompania {
@@ -79,80 +125,29 @@ interface GestionServicio {
 }
 
 ' ===== IMPLEMENTACIONES POR ROL =====
+class OperacionesSoldado implements ConsultaSoldado
+class OperacionesSuboficial implements ConsultaSoldado, ModificacionSoldado
+class OperacionesOficial implements ConsultaSoldado, AltaBajaSoldado, ModificacionSoldado, GestionCuartel, GestionCompania, GestionServicio,GestionCuerpo
 
-class OperacionesSoldado implements ConsultaSoldado {
-    +consultarSoldado(codigo: String): void
-}
-
-class OperacionesSuboficial implements ConsultaSoldado, GestionSoldado, GestionServicio {
-    +consultarSoldado(codigo: String): void
-    +crearSoldado(s: Soldado): void
-    +eliminarSoldado(codigo: String): void
-    +modificarSoldado(s: Soldado): void
-    +crearServicio(s: Servicio): void
-    +eliminarServicio(codigo: String): void
-}
-
-class OperacionesOficial implements ConsultaSoldado, GestionSoldado, GestionCuartel, GestionCompania, GestionServicio {
-    +consultarSoldado(codigo: String): void
-    +crearSoldado(s: Soldado): void
-    +eliminarSoldado(codigo: String): void
-    +modificarSoldado(s: Soldado): void
-    +crearCuartel(c: Cuartel): void
-    +eliminarCuartel(codigo: String): void
-    +crearCompania(c: Compania): void
-    +eliminarCompania(numero: int): void
-    +crearServicio(s: Servicio): void
-    +eliminarServicio(codigo: String): void
-}
-
-' ===== USUARIOS Y STRATEGY =====
-
-abstract class Usuario {
-    -usuario: String
-    -contrasena: String
-    -permisos: ConsultaSoldado
-    +login(): void
-    +consultar(): void
-    +getPermisos(): ConsultaSoldado
-}
-
-class SoldadoUsuario extends Usuario {
-    +SoldadoUsuario(usuario: String, contrasena: String, permisos: ConsultaSoldado)
-}
-
-class Suboficial extends Usuario {
-    +Suboficial(usuario: String, contrasena: String, permisos: ConsultaSoldado)
-}
-
-class Oficial extends Usuario {
-    +Oficial(usuario: String, contrasena: String, permisos: ConsultaSoldado)
-}
-
-Usuario <|-- SoldadoUsuario
-Usuario <|-- Suboficial
-Usuario <|-- Oficial
-Usuario o-- ConsultaSoldado
-
-OperacionesSoldado ..|> ConsultaSoldado
-OperacionesSuboficial ..|> ConsultaSoldado
-OperacionesSuboficial ..|> GestionSoldado
-OperacionesSuboficial ..|> GestionServicio
-OperacionesOficial ..|> ConsultaSoldado
-OperacionesOficial ..|> GestionSoldado
-OperacionesOficial ..|> GestionCuartel
-OperacionesOficial ..|> GestionCompania
-OperacionesOficial ..|> GestionServicio
-
-' ===== PATRÓN COMMAND =====
-
+' ===== COMMAND =====
 interface Command {
     +execute(): void
 }
-
 class CrearSoldadoCommand implements Command {
     -s: Soldado
-    -sistema: GestionSoldado
+    -sistema: AltaBajaSoldado
+    +execute(): void
+}
+
+class CrearServicioCommand implements Command{
+    -servicio: Servicio
+    -sistema: GestionServicio
+    +execute(): void
+}
+
+class CrearCuerpoCommand implements Command {
+    -c: Cuerpo
+    -sistema: GestionCuerpo
     +execute(): void
 }
 
@@ -161,72 +156,59 @@ class CrearCuartelCommand implements Command {
     -sistema: GestionCuartel
     +execute(): void
 }
-
 class CrearCompaniaCommand implements Command {
     -c: Compania
     -sistema: GestionCompania
     +execute(): void
 }
-
 class Invoker {
     -commands: List<Command>
     +addCommand(c: Command): void
     +executeAll(): void
 }
-
-Command <|.. CrearSoldadoCommand
-Command <|.. CrearCuartelCommand
-Command <|.. CrearCompaniaCommand
 Invoker --> Command
-CrearSoldadoCommand --> GestionSoldado
+CrearSoldadoCommand --> AltaBajaSoldado
 CrearCuartelCommand --> GestionCuartel
 CrearCompaniaCommand --> GestionCompania
-
+CrearCuerpoCommand --> GestionCuerpo
+CrearServicioCommand --> GestionServicio
 ' ===== MENÚ DE CONSOLA =====
-
 class MenuConsola {
+    -invoker: Invoker
     -scanner: Scanner
     -usuario: Usuario
     +mostrar(): void
     -ejecutar(opcion: int): boolean
 }
-
+MenuConsola --> Invoker
 MenuConsola --> Usuario
 MenuConsola ..> ConsultaSoldado
-MenuConsola ..> GestionSoldado
+MenuConsola ..> AltaBajaSoldado
+MenuConsola ..> ModificacionSoldado
 MenuConsola ..> GestionCuartel
 MenuConsola ..> GestionCompania
 MenuConsola ..> GestionServicio
+MenuConsola ..> GestionCuerpo
+MenuConsola ..> UsuarioFactory : crearUsuario()
+MenuConsola ..> MilitarFactory : crearMilitar()
 
 ' ===== PERSISTENCIA =====
-
 interface Persistencia<T> {
     +guardar(entidad: T): void
     +cargar(): List<T>
 }
-
 class PersistenciaTextoSoldado implements Persistencia<Soldado> {
     +guardar(entidad: Soldado): void
     +cargar(): List<Soldado>
 }
 
-class PersistenciaDBSoldado implements Persistencia<Soldado> {
-    +guardar(entidad: Soldado): void
-    +cargar(): List<Soldado>
-}
-
-PersistenciaTextoSoldado ..|> Persistencia
-PersistenciaDBSoldado ..|> Persistencia
-Persistencia --> Soldado
-
-' ===== RELACIONES ENTRE ENTIDADES =====
-
-Soldado --> Cuerpo
-Soldado --> Compania
-Soldado --> Cuartel
-Soldado --> "*" ServicioRealizado
+' ===== RELACIONES =====
+Militar --> Cuerpo : pertenece
+Militar --> Compania : tiene
+Militar --> Cuartel
+Militar --> "*" ServicioRealizado
 ServicioRealizado --> Servicio
-Compania --> "*" Soldado
+Compania --> "*" Militar
 Compania --> "*" Cuartel
 Cuartel --> "*" Compania
 

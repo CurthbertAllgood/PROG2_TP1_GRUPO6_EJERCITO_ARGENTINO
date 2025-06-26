@@ -1,7 +1,5 @@
 package org.example.model;
 
-import org.example.usuario.USoldado;
-
 import java.util.List;
 
 public class Compania {
