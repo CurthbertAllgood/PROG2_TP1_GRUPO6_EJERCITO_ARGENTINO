@@ -1,0 +1,5 @@
+user,password,codigo,nombre,apellido,tipo,grado
+soldado,123,M001,Juan,Perez,MILITAR,SOLDADO
+suboficial,456,M002,Luis,Gomez,MILITAR,SUBOFICIAL
+oficial,789,M003,Ana,Ramirez,MILITAR,OFICIAL
+civil,000,C100,Carlos,Diaz,CIVIL,

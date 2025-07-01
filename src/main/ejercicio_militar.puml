@@ -1,6 +1,35 @@
 @startuml
 top to bottom direction
 
+
+package vista {
+
+    class LoginVentana {
+        -usuarioField: JTextField
+        -contrasenaField: JPasswordField
+        -loginButton: JButton
+        +LoginVentana(): void
+        -autenticar(): void
+    }
+
+    class MenuSoldadoVentana {
+        +MenuSoldadoVentana(usuario: Usuario): void
+    }
+
+    class MenuSuboficialVentana {
+        +MenuSuboficialVentana(usuario: Usuario): void
+    }
+
+    class MenuOficialVentana {
+        +MenuOficialVentana(usuario: Usuario): void
+    }
+
+    LoginVentana --> UsuarioFactory : usa
+    LoginVentana --> MenuSoldadoVentana : instancia si es Soldado
+    LoginVentana --> MenuSuboficialVentana : instancia si es Suboficial
+    LoginVentana --> MenuOficialVentana : instancia si es Oficial
+}
+
 ' ===== ENUMERACIONES =====
 enum CuerposEjercito {
   INFANTERIA

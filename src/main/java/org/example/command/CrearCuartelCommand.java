@@ -1,6 +1,6 @@
 package org.example.command;
 
-import org.example.model.Cuartel;
+import org.example.model.infraestructura.Cuartel;
 import org.example.operacion.IGestionCuartel;
 
 public class CrearCuartelCommand implements ICommand {

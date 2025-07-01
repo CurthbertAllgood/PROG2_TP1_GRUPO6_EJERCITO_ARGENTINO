@@ -1,4 +1,31 @@
 package org.example.operacion;
 
-public class OperacionesOficial {
+import org.example.model.personal.Soldado;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class OperacionesOficial implements IAltaBajaSoldado {
+    private List<Soldado> soldados;
+
+    public OperacionesOficial(List<Soldado> soldados) {
+        this.soldados = soldados;
+    }
+
+    @Override
+    public void crearSoldado(Soldado s) {
+        soldados.add(s);
+        System.out.println("Soldado creado: " + s.getNombre());
+    }
+
+    @Override
+    public void eliminarSoldado(String codigo) {
+        soldados.removeIf(s -> s.getCodigo().equals(codigo));
+        System.out.println("Soldado eliminado: " + codigo);
+    }
+
+    public List<Soldado> listar() {
+        return new ArrayList<>(soldados);
+    }
 }
+

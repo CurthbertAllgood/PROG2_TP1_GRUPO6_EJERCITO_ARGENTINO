@@ -1,15 +1,23 @@
 package org.example.command;
 
-import org.example.model.Militar;
-import org.example.operacion.IModificarSoldado;
+import org.example.model.personal.Soldado;
+import org.example.operacion.IAltaBajaSoldado;
+
 
 public class CrearSoldadoCommand implements ICommand {
+    private Soldado soldado;
+    private IAltaBajaSoldado sistema;
 
-    private Militar soldado;
-    private IModificarSoldado gestionSoldado;
+    public CrearSoldadoCommand(Soldado soldado, IAltaBajaSoldado sistema) {
+        this.soldado = soldado;
+        this.sistema = sistema;
+    }
 
     @Override
     public void ejecutar() {
-
+        sistema.crearSoldado(soldado);
+        System.out.println("✔ Soldado creado: " + soldado.getNombre());
     }
+
 }
+

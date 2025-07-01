@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.model.infraestructura;
 
 public class Cuerpo {
     private String codigo;
