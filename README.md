@@ -3,7 +3,7 @@
 Usuarios disponibles:
 
 
-usuario1 -> 123 (soldaod)
+usuario1 -> 123 (soldado)
 
 usuario2 -> 456 (suboficial)
 
