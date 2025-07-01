@@ -5,19 +5,17 @@ public class Soldado {
 
     private String nombre;
     private String apellido;
-    private Grado grado;
     private static int codigoSoldado;
 
 
-    public Soldado(String nombre, String apellido, Grado grado) {
+    public Soldado(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.grado = grado;
         codigoSoldado++;
     }
 
     public void realizarServicio(){
-
+        System.out.println("Realiza servicio");
     }
 
 
