@@ -77,7 +77,7 @@ interface UsuarioFactory {
     +crearUsuario(): Usuario
 }
 
-class MilitarFactory {
+class ReclutarMilitar {
     +crearMilitar(grado: Grado): Militar
 }
 class UsuarioFactory {

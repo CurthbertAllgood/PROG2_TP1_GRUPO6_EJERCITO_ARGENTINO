@@ -5,16 +5,16 @@ import org.example.model.personal.Oficial;
 import org.example.model.personal.Soldado;
 import org.example.model.personal.Suboficial;
 
-public class MilitarFactory {
+public class ReclutarMilitar {
 
-    public static Militar crearMilitar(String grado, String codigo, String nombre, String apellidos) {
+    public static Militar crearMilitar(String grado, String nombre, String apellidos) {
         switch (grado.toUpperCase()) {
             case "SOLDADO":
-                return new Soldado(codigo, nombre, apellidos);
+                return new Soldado(nombre, apellidos);
             case "SUBOFICIAL":
-                return new Suboficial(codigo, nombre, apellidos);
+                return new Suboficial(nombre, apellidos);
             case "OFICIAL":
-                return new Oficial(codigo, nombre, apellidos);
+                return new Oficial(nombre, apellidos);
             default:
                 throw new IllegalArgumentException("Grado militar no reconocido: " + grado);
         }

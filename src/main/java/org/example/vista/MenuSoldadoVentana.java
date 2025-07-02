@@ -31,14 +31,12 @@ public class MenuSoldadoVentana extends JFrame {
         JButton btnVerServicios = new JButton("Ver servicios realizados");
         JButton btnSalir = new JButton("Cerrar sesión");
 
-        // Acción 1: Ver datos
         btnVerDatos.addActionListener(e -> {
             String info = "Nombre: " + soldado.getNombre() + " " + soldado.getApellidos() +
                     "\nCódigo: " + soldado.getCodigo();
             JOptionPane.showMessageDialog(this, info, "Datos del Soldado", JOptionPane.INFORMATION_MESSAGE);
         });
 
-        // Acción 2: Ver servicios realizados
         btnVerServicios.addActionListener(e -> {
             List<ServicioRealizado> servicios = soldado.getServiciosRealizados();
             if (servicios == null || servicios.isEmpty()) {
@@ -56,7 +54,6 @@ public class MenuSoldadoVentana extends JFrame {
             JOptionPane.showMessageDialog(this, sb.toString(), "Servicios Realizados", JOptionPane.INFORMATION_MESSAGE);
         });
 
-        // Acción 3: Cerrar sesión
         btnSalir.addActionListener(e -> {
             new MenuLoginVentana(gestor).setVisible(true);
             dispose();

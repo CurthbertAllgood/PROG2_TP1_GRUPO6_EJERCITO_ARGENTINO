@@ -17,10 +17,9 @@ public class OperacionesOficial implements IAltaBajaSoldado {
         soldados.add(s);
         System.out.println("Soldado creado: " + s.getNombre());
     }
-
     @Override
-    public void eliminarSoldado(String codigo) {
-        soldados.removeIf(s -> s.getCodigo().equals(codigo));
+    public void eliminarSoldado(int codigo) {
+        soldados.removeIf(s -> s.getCodigo() == codigo);
         System.out.println("Soldado eliminado: " + codigo);
     }
 

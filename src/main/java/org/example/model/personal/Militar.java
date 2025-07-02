@@ -15,8 +15,8 @@ public class Militar extends Persona {
     protected Cuartel cuartel;
     protected List<ServicioRealizado> serviciosRealizados;
 
-    public Militar(String codigo, String nombre, String apellidos) {
-        super(codigo, nombre, apellidos);
+    public Militar(String nombre, String apellidos) {
+        super(nombre, apellidos);
         this.serviciosRealizados = new ArrayList<>();
     }
 

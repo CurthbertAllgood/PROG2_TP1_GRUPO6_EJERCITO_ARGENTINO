@@ -1,17 +1,18 @@
 package org.example.model.personal;
 
 public abstract class Persona {
-    protected String codigo;
+    protected static int codigo;
     protected String nombre;
     protected String apellidos;
 
-    public Persona(String codigo, String nombre, String apellidos) {
-        this.codigo = codigo;
+
+    public Persona( String nombre, String apellidos) {
+        this.codigo++;
         this.nombre = nombre;
         this.apellidos = apellidos;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
@@ -21,5 +22,14 @@ public abstract class Persona {
 
     public String getApellidos() {
         return apellidos;
+    }
+
+
+    public static void inicializarLegajoDesde(int maxLegajo) {
+        codigo = maxLegajo;
+    }
+
+    public static int generarNuevoLegajo() {
+        return ++codigo;
     }
 }

@@ -20,18 +20,15 @@ public class Main {
 
         GestorServicios gestorServicios = new GestorServicios(rutaServicios, rutaServiciosRealizados, militares);
 
-        // Vincular los servicios al militar correspondiente
         for (ServicioRealizado sr : gestorServicios.getServiciosRealizados()) {
             sr.getSoldado().agregarServicioRealizado(sr);
         }
 
-        // Mostrar en consola
         System.out.println("=== Servicios Realizados ===");
         for (ServicioRealizado s : gestorServicios.getServiciosRealizados()) {
             System.out.println(s);
         }
 
-        // Lanzar interfaz gráfica
         SwingUtilities.invokeLater(() -> {
             MenuLoginVentana login = new MenuLoginVentana(gestorUsuarios);
             login.setVisible(true);

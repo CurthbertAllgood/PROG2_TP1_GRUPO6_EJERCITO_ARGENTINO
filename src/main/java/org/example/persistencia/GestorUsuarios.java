@@ -1,9 +1,11 @@
 package org.example.persistencia;
 
 import org.example.model.personal.Militar;
+import org.example.model.personal.Persona;
 import org.example.model.personal.Usuario;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class GestorUsuarios {
@@ -11,6 +13,7 @@ public class GestorUsuarios {
 
     public GestorUsuarios(String rutaCSV) {
         this.usuarios = cargarDesdeCSV(rutaCSV);
+        inicializarLegajoMaximo();
     }
 
     private List<Usuario> cargarDesdeCSV(String ruta) {
@@ -29,11 +32,26 @@ public class GestorUsuarios {
             String grado = fila.length > 6 ? fila[6] : null;
 
             Usuario u = new Usuario(user, pass);
-            u.inicializarPersona(tipo, grado, codigo, nombre, apellido);
+            u.inicializarPersona(tipo, grado, nombre, apellido);
             lista.add(u);
         }
 
         return lista;
+    }
+
+    private void inicializarLegajoMaximo() {
+        int maxLegajo = usuarios.stream()
+                .map(u -> {
+                    try {
+                        return u.getPersona().getCodigo();
+                    } catch (NumberFormatException e) {
+                        return 0;
+                    }
+                })
+                .max(Comparator.naturalOrder())
+                .orElse(0);
+
+        Persona.inicializarLegajoDesde(maxLegajo);
     }
 
     public List<Militar> getMilitares() {
@@ -45,8 +63,6 @@ public class GestorUsuarios {
         }
         return militares;
     }
-
-
 
     public Usuario login(String userInput, String passInput) {
         return usuarios.stream()

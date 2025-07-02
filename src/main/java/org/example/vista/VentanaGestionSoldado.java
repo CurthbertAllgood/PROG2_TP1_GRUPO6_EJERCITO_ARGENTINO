@@ -2,7 +2,9 @@ package org.example.vista;
 
 import org.example.command.Invoker;
 import org.example.command.CrearSoldadoCommand;
+import org.example.model.personal.Persona;
 import org.example.model.personal.Soldado;
+import org.example.model.personal.Usuario;
 import org.example.operacion.OperacionesOficial;
 
 import javax.swing.*;
@@ -43,36 +45,39 @@ public class VentanaGestionSoldado extends JFrame {
         cargarSoldados();
 
         btnAgregar.addActionListener(e -> {
-            JTextField campoCodigo = new JTextField();
+            JTextField campoUsuario = new JTextField();
+            JTextField campoContrasenia = new JTextField();
             JTextField campoNombre = new JTextField();
             JTextField campoApellido = new JTextField();
 
             Object[] mensaje = {
-                    "Código:", campoCodigo,
+                    "Usuario", campoUsuario,
+                    "contraseña", campoContrasenia,
                     "Nombre:", campoNombre,
-                    "Apellido:", campoApellido
+                    "Apellido:", campoApellido,
+
             };
 
             int opcion = JOptionPane.showConfirmDialog(this, mensaje, "Nuevo Soldado", JOptionPane.OK_CANCEL_OPTION);
             if (opcion == JOptionPane.OK_OPTION) {
-                Soldado nuevo = new Soldado(
-                        campoCodigo.getText(),
-                        campoNombre.getText(),
-                        campoApellido.getText()
+                Usuario nuevoUsuario = new Usuario(
+                        campoUsuario.getText(),
+                        campoContrasenia.getText()
                 );
 
+                Persona nuevoSoldado = new Soldado(campoNombre.getText(),campoApellido.getText());
                 Invoker invoker = new Invoker();
-                invoker.agregarCommand(new CrearSoldadoCommand(nuevo, sistema));
+                invoker.agregarCommand(new CrearSoldadoCommand((Soldado) nuevoSoldado, sistema));
                 invoker.ejecutarTodo();
 
-                modelo.addRow(new Object[]{nuevo.getCodigo(), nuevo.getNombre(), nuevo.getApellidos()});
+                modelo.addRow(new Object[]{nuevoUsuario.getCodigo(), nuevoUsuario.getNombre(), nuevoUsuario.getApellidos()});
             }
         });
 
         btnEliminar.addActionListener(e -> {
             int fila = tabla.getSelectedRow();
             if (fila >= 0) {
-                String codigo = modelo.getValueAt(fila, 0).toString();
+                int codigo = (int) modelo.getValueAt(fila, 0);
                 sistema.eliminarSoldado(codigo);
                 modelo.removeRow(fila);
             } else {

@@ -30,7 +30,6 @@ public class MenuLoginVentana extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Usuario
         gbc.gridx = 0; gbc.gridy = 0; gbc.anchor = GridBagConstraints.LINE_END;
         panel.add(new JLabel("Usuario:"), gbc);
 
@@ -38,7 +37,6 @@ public class MenuLoginVentana extends JFrame {
         gbc.gridx = 1; gbc.anchor = GridBagConstraints.LINE_START;
         panel.add(usuarioField, gbc);
 
-        // Contraseña
         gbc.gridx = 0; gbc.gridy = 1; gbc.anchor = GridBagConstraints.LINE_END;
         panel.add(new JLabel("Contraseña:"), gbc);
 
@@ -46,7 +44,7 @@ public class MenuLoginVentana extends JFrame {
         gbc.gridx = 1; gbc.anchor = GridBagConstraints.LINE_START;
         panel.add(contrasenaField, gbc);
 
-        // Botón Ingresar
+
         ingresarButton = new JButton("Ingresar");
         gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2; gbc.anchor = GridBagConstraints.CENTER;
         panel.add(ingresarButton, gbc);

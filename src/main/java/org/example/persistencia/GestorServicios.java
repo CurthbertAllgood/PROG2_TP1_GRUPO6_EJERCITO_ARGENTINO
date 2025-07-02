@@ -41,12 +41,12 @@ public class GestorServicios {
         for (String[] fila : filas) {
             if (fila.length < 3) continue;
 
-            String codMilitar = fila[0];
+            int scodMilitar = Integer.parseInt(fila[0]);
             int codServicio = Integer.parseInt(fila[1]);
             LocalDateTime fecha = LocalDateTime.parse(fila[2], FORMATO);
 
             Militar militar = militares.stream()
-                    .filter(m -> m.getCodigo().equals(codMilitar))
+                    .filter(m -> m.getCodigo()== scodMilitar)
                     .findFirst()
                     .orElse(null);
 

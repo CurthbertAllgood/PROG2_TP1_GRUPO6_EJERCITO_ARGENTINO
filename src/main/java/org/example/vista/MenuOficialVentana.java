@@ -41,7 +41,6 @@ public class MenuOficialVentana extends JFrame {
 
         add(panel);
 
-        // Abrir ventana de gestión de soldado
         botonGestionSoldado.addActionListener(e -> {
             List<Soldado> soldados = gestor.getMilitares().stream()
                     .filter(m -> m instanceof Soldado)
@@ -52,7 +51,6 @@ public class MenuOficialVentana extends JFrame {
             new VentanaGestionSoldado(sistema).setVisible(true);
         });
 
-        // Por ahora simulados
         botonGestionCuartel.addActionListener(e ->
                 JOptionPane.showMessageDialog(this, "Gestionando cuarteles (simulado)."));
 
