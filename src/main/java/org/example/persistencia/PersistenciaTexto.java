@@ -3,6 +3,7 @@ package org.example.persistencia;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -29,6 +30,14 @@ public class PersistenciaTexto {
         }
 
         return datos;
+    }
+
+    public static void agregarLineaCSV(String rutaArchivo, String[] datos) {
+        try (FileWriter fw = new FileWriter(rutaArchivo, true)) {
+            fw.write(String.join(",", datos) + "\n");
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
     }
 
 

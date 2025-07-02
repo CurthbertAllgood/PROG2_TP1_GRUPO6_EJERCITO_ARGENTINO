@@ -3,6 +3,7 @@ package org.example.model.personal;
 import org.example.factory.ReclutarMilitar;
 import org.example.factory.CivilFactory;
 
+
 public class Usuario {
     private String user;
     private String password;
@@ -12,6 +13,7 @@ public class Usuario {
         this.user = user;
         this.password = password;
     }
+
     public Usuario(Persona persona) {
         this.persona = persona;
     }
@@ -20,13 +22,14 @@ public class Usuario {
         return this.user.equals(inputUser) && this.password.equals(inputPass);
     }
 
-    public void inicializarPersona(String tipo, String grado,String nombre, String apellidos) {
+    // ✅ Ahora con el campo código (legajo) recibido desde CSV
+    public void inicializarPersona(String tipo, String grado, String nombre, String apellidos) {
         if (tipo.equalsIgnoreCase("MILITAR")) {
-            this.persona = ReclutarMilitar.crearMilitar(grado, nombre, apellidos);
+            this.persona = ReclutarMilitar.crearMilitar(grado, nombre, apellidos, tipo);
         } else if (tipo.equalsIgnoreCase("CIVIL")) {
             this.persona = CivilFactory.crearCivil(nombre, apellidos);
         } else {
-            throw new IllegalArgumentException("Tipo de persona no reconocido");
+            throw new IllegalArgumentException("Tipo de persona no reconocido: " + tipo);
         }
     }
 
@@ -52,5 +55,9 @@ public class Usuario {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 }

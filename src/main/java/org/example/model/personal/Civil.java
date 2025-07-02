@@ -6,5 +6,15 @@ public class Civil extends Persona {
         super(nombre, apellidos);
     }
 
+    @Override
+    public String getTipo() {
+        return "CIVIL";
+    }
+
+    @Override
+    public String getGrado() {
+        return "";
+    }
+
 
 }

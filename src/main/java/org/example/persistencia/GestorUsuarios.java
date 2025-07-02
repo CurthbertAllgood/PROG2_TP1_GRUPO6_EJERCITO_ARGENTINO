@@ -12,20 +12,36 @@ public class GestorUsuarios {
     private List<Usuario> usuarios;
 
     public GestorUsuarios(String rutaCSV) {
-        this.usuarios = cargarDesdeCSV(rutaCSV);
-        inicializarLegajoMaximo();
+        List<String[]> filas = PersistenciaTexto.leerCSV(rutaCSV);
+        inicializarLegajoMaximo(filas);
+        this.usuarios = cargarDesdeCSV(filas);
     }
 
-    private List<Usuario> cargarDesdeCSV(String ruta) {
+    // Inicializa el código más alto antes de crear objetos Persona
+    private void inicializarLegajoMaximo(List<String[]> filas) {
+        int maxLegajo = filas.stream()
+                .map(fila -> {
+                    try {
+                        return Integer.parseInt(fila[2]);
+                    } catch (Exception e) {
+                        return 0;
+                    }
+                })
+                .max(Comparator.naturalOrder())
+                .orElse(0);
+
+        Persona.inicializarLegajoDesde(maxLegajo);
+    }
+
+    // Carga usuarios desde CSV una vez que el código está inicializado
+    private List<Usuario> cargarDesdeCSV(List<String[]> filas) {
         List<Usuario> lista = new ArrayList<>();
-        List<String[]> filas = PersistenciaTexto.leerCSV(ruta);
 
         for (String[] fila : filas) {
             if (fila.length < 6) continue;
 
             String user = fila[0];
             String pass = fila[1];
-            String codigo = fila[2];
             String nombre = fila[3];
             String apellido = fila[4];
             String tipo = fila[5];
@@ -39,21 +55,6 @@ public class GestorUsuarios {
         return lista;
     }
 
-    private void inicializarLegajoMaximo() {
-        int maxLegajo = usuarios.stream()
-                .map(u -> {
-                    try {
-                        return u.getPersona().getCodigo();
-                    } catch (NumberFormatException e) {
-                        return 0;
-                    }
-                })
-                .max(Comparator.naturalOrder())
-                .orElse(0);
-
-        Persona.inicializarLegajoDesde(maxLegajo);
-    }
-
     public List<Militar> getMilitares() {
         List<Militar> militares = new ArrayList<>();
         for (Usuario u : usuarios) {
@@ -62,6 +63,21 @@ public class GestorUsuarios {
             }
         }
         return militares;
+    }
+
+    public void guardarUsuario(Usuario nuevo, String ruta) {
+        String[] datos = {
+                nuevo.getUser(),
+                nuevo.getPassword(),
+                String.valueOf(nuevo.getPersona().getCodigo()),
+                nuevo.getPersona().getNombre(),
+                nuevo.getPersona().getApellidos(),
+                nuevo.getPersona().getTipo(),
+                nuevo.getPersona().getGrado()
+        };
+
+        PersistenciaTexto.agregarLineaCSV(ruta, datos);
+        usuarios.add(nuevo);
     }
 
     public Usuario login(String userInput, String passInput) {

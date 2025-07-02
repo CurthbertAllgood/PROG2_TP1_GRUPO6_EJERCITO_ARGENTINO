@@ -7,7 +7,7 @@ import org.example.model.personal.Suboficial;
 
 public class ReclutarMilitar {
 
-    public static Militar crearMilitar(String grado, String nombre, String apellidos) {
+    public static Militar crearMilitar(String grado, String nombre, String apellidos, String s) {
         switch (grado.toUpperCase()) {
             case "SOLDADO":
                 return new Soldado(nombre, apellidos);

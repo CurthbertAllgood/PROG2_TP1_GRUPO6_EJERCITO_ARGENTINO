@@ -6,4 +6,11 @@ public class Soldado extends Militar{
         super(nombre, apellidos);
     }
 
+    @Override
+    public String getTipo() {
+        return "MILITAR";
+    }
+    @Override
+    public String getGrado() {return "SOLDADO";}
+
 }

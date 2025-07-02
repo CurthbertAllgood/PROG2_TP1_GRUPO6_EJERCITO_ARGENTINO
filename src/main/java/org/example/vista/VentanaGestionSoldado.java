@@ -1,8 +1,7 @@
 package org.example.vista;
 
-import org.example.command.Invoker;
 import org.example.command.CrearSoldadoCommand;
-import org.example.model.personal.Persona;
+import org.example.command.Invoker;
 import org.example.model.personal.Soldado;
 import org.example.model.personal.Usuario;
 import org.example.operacion.OperacionesOficial;
@@ -44,40 +43,52 @@ public class VentanaGestionSoldado extends JFrame {
 
         cargarSoldados();
 
+
         btnAgregar.addActionListener(e -> {
             JTextField campoUsuario = new JTextField();
             JTextField campoContrasenia = new JTextField();
             JTextField campoNombre = new JTextField();
             JTextField campoApellido = new JTextField();
-
+            JTextField campoTipo = new JTextField();
+            JTextField campoGrado = new JTextField();
             Object[] mensaje = {
-                    "Usuario", campoUsuario,
-                    "contraseña", campoContrasenia,
+                    "Usuario:", campoUsuario,
+                    "Contraseña:", campoContrasenia,
                     "Nombre:", campoNombre,
                     "Apellido:", campoApellido,
-
+                    "Tipo:",campoTipo,
+                    "Grado:", campoGrado
             };
 
             int opcion = JOptionPane.showConfirmDialog(this, mensaje, "Nuevo Soldado", JOptionPane.OK_CANCEL_OPTION);
             if (opcion == JOptionPane.OK_OPTION) {
-                Usuario nuevoUsuario = new Usuario(
-                        campoUsuario.getText(),
-                        campoContrasenia.getText()
-                );
 
-                Persona nuevoSoldado = new Soldado(campoNombre.getText(),campoApellido.getText());
+                Soldado nuevoSoldado = new Soldado(campoNombre.getText(), campoApellido.getText());
+
+
+                Usuario nuevoUsuario = new Usuario(campoUsuario.getText(), campoContrasenia.getText());
+                nuevoUsuario.setPersona(nuevoSoldado);
+
+
                 Invoker invoker = new Invoker();
-                invoker.agregarCommand(new CrearSoldadoCommand((Soldado) nuevoSoldado, sistema));
+                invoker.agregarCommand(new CrearSoldadoCommand(nuevoSoldado, sistema));
                 invoker.ejecutarTodo();
 
-                modelo.addRow(new Object[]{nuevoUsuario.getCodigo(), nuevoUsuario.getNombre(), nuevoUsuario.getApellidos()});
+
+                modelo.addRow(new Object[]{
+                        nuevoSoldado.getCodigo(),
+                        nuevoSoldado.getNombre(),
+                        nuevoSoldado.getApellidos()
+                });
+
+
             }
         });
 
         btnEliminar.addActionListener(e -> {
             int fila = tabla.getSelectedRow();
             if (fila >= 0) {
-                int codigo = (int) modelo.getValueAt(fila, 0);
+                int codigo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
                 sistema.eliminarSoldado(codigo);
                 modelo.removeRow(fila);
             } else {
@@ -85,13 +96,18 @@ public class VentanaGestionSoldado extends JFrame {
             }
         });
 
+        // Cerrar ventana
         btnCerrar.addActionListener(e -> dispose());
     }
 
     private void cargarSoldados() {
         List<Soldado> soldados = sistema.listar();
         for (Soldado s : soldados) {
-            modelo.addRow(new Object[]{s.getCodigo(), s.getNombre(), s.getApellidos()});
+            modelo.addRow(new Object[]{
+                    s.getCodigo(),
+                    s.getNombre(),
+                    s.getApellidos()
+            });
         }
     }
 }

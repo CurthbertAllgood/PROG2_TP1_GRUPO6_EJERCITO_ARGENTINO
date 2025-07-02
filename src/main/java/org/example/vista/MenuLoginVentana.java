@@ -11,12 +11,15 @@ public class MenuLoginVentana extends JFrame {
     private JTextField usuarioField;
     private JPasswordField contrasenaField;
     private JButton ingresarButton;
+    private final String rutaUsuarios;
     private final GestorUsuarios gestor;
 
-    public MenuLoginVentana(GestorUsuarios gestor) {
+    public MenuLoginVentana(GestorUsuarios gestor, String rutaUsuarios) {
         this.gestor = gestor;
+        this.rutaUsuarios = rutaUsuarios;
         initComponents();
     }
+
 
     private void initComponents() {
         setTitle("Login Militar");
@@ -70,9 +73,9 @@ public class MenuLoginVentana extends JFrame {
         if (persona instanceof Soldado) {
             new MenuSoldadoVentana((Soldado) persona, gestor).setVisible(true);
         } else if (persona instanceof Suboficial) {
-            new MenuSuboficialVentana((Suboficial) persona, gestor).setVisible(true);
+            new MenuSuboficialVentana((Suboficial) persona, gestor, rutaUsuarios).setVisible(true);
         } else if (persona instanceof Oficial) {
-            new MenuOficialVentana((Oficial) persona, gestor).setVisible(true);
+                new MenuOficialVentana((Oficial) persona, gestor, rutaUsuarios).setVisible(true);
         } else if (persona instanceof Civil) {
             JOptionPane.showMessageDialog(this, "Bienvenido, civil.");
         }

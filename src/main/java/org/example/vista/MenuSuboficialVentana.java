@@ -10,10 +10,12 @@ public class MenuSuboficialVentana extends JFrame {
 
     private final Suboficial persona;
     private final GestorUsuarios gestor;
+    private  String rutaUsuarios;
 
-    public MenuSuboficialVentana(Suboficial persona, GestorUsuarios gestor) {
+    public MenuSuboficialVentana(Suboficial persona, GestorUsuarios gestor, String rutaUsuarios) {
         this.persona = persona;
         this.gestor = gestor;
+        this.rutaUsuarios = rutaUsuarios;
 
         setTitle("Menú Suboficial");
         setSize(350, 250);
@@ -42,7 +44,7 @@ public class MenuSuboficialVentana extends JFrame {
 
         botonSalir.addActionListener(e -> {
             dispose();
-            new MenuLoginVentana(gestor).setVisible(true);
+            new MenuLoginVentana(gestor, rutaUsuarios).setVisible(true);
         });
 
         add(panel);

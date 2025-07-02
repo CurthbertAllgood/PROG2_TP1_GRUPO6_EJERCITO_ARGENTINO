@@ -24,13 +24,14 @@ public class Main {
             sr.getSoldado().agregarServicioRealizado(sr);
         }
 
-        System.out.println("=== Servicios Realizados ===");
+
         for (ServicioRealizado s : gestorServicios.getServiciosRealizados()) {
             System.out.println(s);
         }
 
         SwingUtilities.invokeLater(() -> {
-            MenuLoginVentana login = new MenuLoginVentana(gestorUsuarios);
+            MenuLoginVentana login = new MenuLoginVentana(gestorUsuarios, rutaUsuarios);
+
             login.setVisible(true);
         });
     }

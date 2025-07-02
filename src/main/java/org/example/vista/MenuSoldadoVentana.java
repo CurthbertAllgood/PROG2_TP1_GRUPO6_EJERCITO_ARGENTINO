@@ -14,7 +14,7 @@ public class MenuSoldadoVentana extends JFrame {
     private final Soldado soldado;
     private final GestorUsuarios gestor;
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
+    private  String rutaUsuarios;
     public MenuSoldadoVentana(Soldado soldado, GestorUsuarios gestor) {
         this.soldado = soldado;
         this.gestor = gestor;
@@ -55,7 +55,7 @@ public class MenuSoldadoVentana extends JFrame {
         });
 
         btnSalir.addActionListener(e -> {
-            new MenuLoginVentana(gestor).setVisible(true);
+            new MenuLoginVentana(gestor, rutaUsuarios).setVisible(true);
             dispose();
         });
 

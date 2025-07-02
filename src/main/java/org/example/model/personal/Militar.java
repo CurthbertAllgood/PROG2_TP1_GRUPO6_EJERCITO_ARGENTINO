@@ -8,7 +8,7 @@ import org.example.model.servicio.ServicioRealizado;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Militar extends Persona {
+public abstract class Militar extends Persona {
 
     protected Cuerpo cuerpo;
     protected Compania compania;
@@ -19,6 +19,7 @@ public class Militar extends Persona {
         super(nombre, apellidos);
         this.serviciosRealizados = new ArrayList<>();
     }
+
 
 
     public Cuerpo getCuerpo() {

@@ -11,10 +11,12 @@ import java.util.List;
 
 public class MenuOficialVentana extends JFrame {
 
-    private GestorUsuarios gestor;
+    private final GestorUsuarios gestor;
+    private String rutaUsuarios;
 
-    public MenuOficialVentana(Oficial persona, GestorUsuarios gestor) {
+    public MenuOficialVentana(Oficial persona, GestorUsuarios gestor, String rutaUsuarios) {
         this.gestor = gestor;
+        this.rutaUsuarios = rutaUsuarios; // ✅ Asignás el parámetro recibido
 
         setTitle("Menú Oficial");
         setSize(400, 350);
@@ -47,7 +49,7 @@ public class MenuOficialVentana extends JFrame {
                     .map(m -> (Soldado) m)
                     .toList();
 
-            OperacionesOficial sistema = new OperacionesOficial(soldados);
+            OperacionesOficial sistema = new OperacionesOficial(soldados, gestor, rutaUsuarios); // ✅ Pasás todo
             new VentanaGestionSoldado(sistema).setVisible(true);
         });
 
@@ -62,7 +64,7 @@ public class MenuOficialVentana extends JFrame {
 
         botonSalir.addActionListener(e -> {
             dispose();
-            new MenuLoginVentana(gestor).setVisible(true);
+            new MenuLoginVentana(gestor, rutaUsuarios).setVisible(true); // ✅ Usás el constructor correcto
         });
     }
 }
