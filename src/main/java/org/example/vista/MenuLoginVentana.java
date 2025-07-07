@@ -75,7 +75,7 @@ public class MenuLoginVentana extends JFrame {
         } else if (persona instanceof Suboficial) {
             new MenuSuboficialVentana((Suboficial) persona, gestor, rutaUsuarios).setVisible(true);
         } else if (persona instanceof Oficial) {
-                new MenuOficialVentana((Oficial) persona, gestor, rutaUsuarios).setVisible(true);
+            new MenuOficialVentana((Oficial) persona, gestor, rutaUsuarios).setVisible(true);
         } else if (persona instanceof Civil) {
             JOptionPane.showMessageDialog(this, "Bienvenido, civil.");
         }

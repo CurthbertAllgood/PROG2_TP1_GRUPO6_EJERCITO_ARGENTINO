@@ -17,7 +17,6 @@ public class GestorUsuarios {
         this.usuarios = cargarDesdeCSV(filas);
     }
 
-    // Inicializa el código más alto antes de crear objetos Persona
     private void inicializarLegajoMaximo(List<String[]> filas) {
         int maxLegajo = filas.stream()
                 .map(fila -> {
@@ -33,7 +32,6 @@ public class GestorUsuarios {
         Persona.inicializarLegajoDesde(maxLegajo);
     }
 
-    // Carga usuarios desde CSV una vez que el código está inicializado
     private List<Usuario> cargarDesdeCSV(List<String[]> filas) {
         List<Usuario> lista = new ArrayList<>();
 
@@ -42,18 +40,32 @@ public class GestorUsuarios {
 
             String user = fila[0];
             String pass = fila[1];
+
+            int codigo;
+            try {
+                codigo = Integer.parseInt(fila[2]);
+            } catch (NumberFormatException e) {
+                System.err.println("⚠ Código inválido en CSV para usuario: " + user);
+                continue;
+            }
+
             String nombre = fila[3];
             String apellido = fila[4];
             String tipo = fila[5];
             String grado = fila.length > 6 ? fila[6] : null;
 
             Usuario u = new Usuario(user, pass);
-            u.inicializarPersona(tipo, grado, nombre, apellido);
+            u.inicializarPersona(codigo,tipo, grado, nombre, apellido);
             lista.add(u);
         }
 
         return lista;
     }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
 
     public List<Militar> getMilitares() {
         List<Militar> militares = new ArrayList<>();
@@ -79,6 +91,27 @@ public class GestorUsuarios {
         PersistenciaTexto.agregarLineaCSV(ruta, datos);
         usuarios.add(nuevo);
     }
+
+    public void eliminarUsuario(int codigo, String ruta) {
+        usuarios.removeIf(u -> u.getPersona().getCodigo() == codigo);
+
+        List<String[]> nuevasLineas = new ArrayList<>();
+        for (Usuario u : usuarios) {
+            String[] datos = {
+                    u.getUser(),
+                    u.getPassword(),
+                    String.valueOf(u.getPersona().getCodigo()),
+                    u.getPersona().getNombre(),
+                    u.getPersona().getApellidos(),
+                    u.getPersona().getTipo(),
+                    u.getPersona().getGrado()
+            };
+            nuevasLineas.add(datos);
+        }
+
+        PersistenciaTexto.sobrescribirCSV(ruta, nuevasLineas);
+    }
+
 
     public Usuario login(String userInput, String passInput) {
         return usuarios.stream()

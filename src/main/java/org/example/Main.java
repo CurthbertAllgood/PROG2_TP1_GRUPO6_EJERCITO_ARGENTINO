@@ -16,6 +16,8 @@ public class Main {
         String rutaServiciosRealizados = "src/main/java/org/example/resources/servicios_realizados.csv";
 
         GestorUsuarios gestorUsuarios = new GestorUsuarios(rutaUsuarios);
+        System.out.println("Cantidad de usuarios cargados: " + gestorUsuarios.getMilitares().size());
+
         List<Militar> militares = gestorUsuarios.getMilitares();
 
         GestorServicios gestorServicios = new GestorServicios(rutaServicios, rutaServiciosRealizados, militares);

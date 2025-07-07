@@ -29,7 +29,7 @@ public class MenuOficialVentana extends JFrame {
         JLabel bienvenida = new JLabel("Bienvenido, Oficial", SwingConstants.CENTER);
         panel.add(bienvenida);
 
-        JButton botonGestionSoldado = new JButton("Gestionar Soldado");
+        JButton botonGestionSoldado = new JButton("Gestionar Usuario");
         JButton botonGestionCuartel = new JButton("Gestionar Cuartel");
         JButton botonGestionCompania = new JButton("Gestionar Compañía");
         JButton botonGestionServicio = new JButton("Gestionar Servicio");
@@ -50,7 +50,9 @@ public class MenuOficialVentana extends JFrame {
                     .toList();
 
             OperacionesOficial sistema = new OperacionesOficial(soldados, gestor, rutaUsuarios); // ✅ Pasás todo
-            new VentanaGestionSoldado(sistema).setVisible(true);
+            new VentanaGestionUsuarios(gestor, rutaUsuarios).setVisible(true);
+
+
         });
 
         botonGestionCuartel.addActionListener(e ->

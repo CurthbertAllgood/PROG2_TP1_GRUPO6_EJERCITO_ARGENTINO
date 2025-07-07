@@ -20,4 +20,3 @@ public class CrearSoldadoCommand implements ICommand {
     }
 
 }
-

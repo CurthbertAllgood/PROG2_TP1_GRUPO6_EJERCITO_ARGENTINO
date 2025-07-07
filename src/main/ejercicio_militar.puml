@@ -1,51 +1,6 @@
 @startuml
 top to bottom direction
 
-
-package vista {
-
-    class LoginVentana {
-        -usuarioField: JTextField
-        -contrasenaField: JPasswordField
-        -loginButton: JButton
-        +LoginVentana(): void
-        -autenticar(): void
-    }
-
-    class MenuSoldadoVentana {
-        +MenuSoldadoVentana(usuario: Usuario): void
-    }
-
-    class MenuSuboficialVentana {
-        +MenuSuboficialVentana(usuario: Usuario): void
-    }
-
-    class MenuOficialVentana {
-        +MenuOficialVentana(usuario: Usuario): void
-    }
-
-    LoginVentana --> UsuarioFactory : usa
-    LoginVentana --> MenuSoldadoVentana : instancia si es Soldado
-    LoginVentana --> MenuSuboficialVentana : instancia si es Suboficial
-    LoginVentana --> MenuOficialVentana : instancia si es Oficial
-}
-
-' ===== ENUMERACIONES =====
-enum CuerposEjercito {
-  INFANTERIA
-  ARTILLERIA
-  ARMADA
-}
-
-' ===== CLASES MILITAR Y USUARIOS =====
-abstract class Militar {
-
-    -cuerpo: Cuerpo
-    -compania: Compania
-    -cuartel: Cuartel
-    -serviciosRealizados: List<ServicioRealizado>
-}
-
 class Soldado
 class Suboficial
 class Oficial
@@ -53,31 +8,62 @@ Militar <|-- Soldado
 Militar <|-- Suboficial
 Militar <|-- Oficial
 
-class Civil{
-
-}
-
 class Limpieza extends Servicio
 class Mantenimiento extends Servicio
+class Militar extends Usuario
+class Civil extends Usuario
+
+
+class INFANTERIA extends Cuerpo
+class ARTILLERIA extends Cuerpo
+class COMUNICACIONES extends Cuerpo
+class CABALLERIA extends Cuerpo
+class INGENIERO extends Cuerpo
+
+class INFANTERIA{
+}
+
+class ARTILLERIA{
+}
+
+class COMUNICACIONES{
+}
+
+class CABALLERIA{
+}
+
+class INGENIERO{
+}
+
+
+' ===== CLASES MILITAR Y USUARIOS =====
+
+abstract class Militar {
+    - cuerpo: Cuerpo
+    - codigo_legajo: int / String
+    - compania: Compania
+    - cuartel: Cuartel
+}
+
 
 class Usuario {
     -user: String
     -password: String
-    -codigo: String
+    -DNI: int
     -nombre: String
     -apellidos: String
     +login(): void
-    }
-Usuario --> Militar
+}
 
-Civil --|> Usuario
+class Civil{
+}
 
 ' ===== FÁBRICAS =====
 interface UsuarioFactory {
     +crearUsuario(): Usuario
 }
 
-class ReclutarMilitar {
+class MilitarFactory {
     +crearMilitar(grado: Grado): Militar
 }
 class UsuarioFactory {
@@ -85,12 +71,10 @@ class UsuarioFactory {
 }
 
 ' ===== RESTO DEL MODELO =====
+
 class Cuerpo {
-    -cuerpo: CuerposEjercito
-    -codigo: String
-    -denominacion: String
+    - denominacion: String
 }
-Cuerpo --> CuerposEjercito
 
 class Compania {
     -numero: int
@@ -100,10 +84,10 @@ class Compania {
 }
 
 class Cuartel {
-    -codigo: String
-    -nombre: String
-    -ubicacion: String
-    -companias: List<Compania>
+    - codigo_cuartel: String
+    - nombre: String
+    - ubicacion: String
+    - compania: Compania
 }
 
 class Servicio {
@@ -234,11 +218,9 @@ class PersistenciaTextoSoldado implements Persistencia<Soldado> {
 ' ===== RELACIONES =====
 Militar --> Cuerpo : pertenece
 Militar --> Compania : tiene
-Militar --> Cuartel
 Militar --> "*" ServicioRealizado
 ServicioRealizado --> Servicio
 Compania --> "*" Militar
 Compania --> "*" Cuartel
 Cuartel --> "*" Compania
-
 @enduml

@@ -7,14 +7,14 @@ import org.example.model.personal.Suboficial;
 
 public class ReclutarMilitar {
 
-    public static Militar crearMilitar(String grado, String nombre, String apellidos, String s) {
+    public static Militar crearMilitar(int codigo,String grado, String nombre, String apellidos, String s) {
         switch (grado.toUpperCase()) {
             case "SOLDADO":
-                return new Soldado(nombre, apellidos);
+                return new Soldado(codigo,nombre, apellidos);
             case "SUBOFICIAL":
-                return new Suboficial(nombre, apellidos);
+                return new Suboficial(codigo,nombre, apellidos);
             case "OFICIAL":
-                return new Oficial(nombre, apellidos);
+                return new Oficial(codigo,nombre, apellidos);
             default:
                 throw new IllegalArgumentException("Grado militar no reconocido: " + grado);
         }

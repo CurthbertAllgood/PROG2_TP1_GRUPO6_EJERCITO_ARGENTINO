@@ -15,12 +15,10 @@ public abstract class Militar extends Persona {
     protected Cuartel cuartel;
     protected List<ServicioRealizado> serviciosRealizados;
 
-    public Militar(String nombre, String apellidos) {
-        super(nombre, apellidos);
+    public Militar(int codigo, String nombre, String apellidos) {
+        super(codigo, nombre, apellidos);
         this.serviciosRealizados = new ArrayList<>();
     }
-
-
 
     public Cuerpo getCuerpo() {
         return cuerpo;

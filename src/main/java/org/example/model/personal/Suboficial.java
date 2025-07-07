@@ -3,8 +3,8 @@ package org.example.model.personal;
 public class Suboficial extends Militar{
 
 
-    public Suboficial(String nombre, String apellidos) {
-        super(nombre, apellidos);
+    public Suboficial(int codigo,String nombre, String apellidos) {
+        super(codigo,nombre, apellidos);
     }
 
     @Override

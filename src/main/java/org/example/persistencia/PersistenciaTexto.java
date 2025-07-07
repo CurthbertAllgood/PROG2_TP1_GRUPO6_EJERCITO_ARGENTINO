@@ -1,10 +1,7 @@
 package org.example.persistencia;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class PersistenciaTexto {
@@ -30,6 +27,16 @@ public class PersistenciaTexto {
         }
 
         return datos;
+    }
+
+    public static void sobrescribirCSV(String ruta, List<String[]> datos) {
+        try (PrintWriter writer = new PrintWriter(ruta)) {
+            for (String[] fila : datos) {
+                writer.println(String.join(",", fila));
+            }
+        } catch (Exception e) {
+            System.err.println("Error al sobrescribir CSV: " + e.getMessage());
+        }
     }
 
     public static void agregarLineaCSV(String rutaArchivo, String[] datos) {

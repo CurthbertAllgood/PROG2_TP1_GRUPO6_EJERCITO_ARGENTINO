@@ -5,9 +5,9 @@ import org.example.model.personal.Persona;
 
 public class CivilFactory {
 
-    public static Persona crearCivil(String nombre, String apellidos) {
+    public static Persona crearCivil(int codigo,String nombre, String apellidos) {
 
-        return new Civil(nombre, apellidos);
+        return new Civil(codigo,nombre, apellidos);
     }
 
 

@@ -35,6 +35,8 @@ public class OperacionesOficial implements IAltaBajaSoldado {
         gestorUsuarios.guardarUsuario(nuevo, rutaUsuarios); // Persistir en CSV
     }
 
+
+
     @Override
     public void eliminarSoldado(int codigo) {
         // También podrías eliminar el usuario relacionado aquí, si es necesario.
