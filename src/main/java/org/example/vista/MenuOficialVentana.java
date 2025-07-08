@@ -1,8 +1,10 @@
 package org.example.vista;
 
+import org.example.model.infraestructura.Cuartel;
 import org.example.model.personal.Oficial;
 import org.example.model.personal.Soldado;
 import org.example.operacion.OperacionesOficial;
+import org.example.persistencia.GestorCuarteles;
 import org.example.persistencia.GestorUsuarios;
 
 import javax.swing.*;
@@ -11,12 +13,16 @@ import java.util.List;
 
 public class MenuOficialVentana extends JFrame {
 
-    private final GestorUsuarios gestor;
-    private String rutaUsuarios;
+    private final GestorUsuarios gestorU;
+    private final GestorCuarteles gestorC;
+    private final String rutaUsuarios;
+    private final String rutaCuarteles;
 
-    public MenuOficialVentana(Oficial persona, GestorUsuarios gestor, String rutaUsuarios) {
-        this.gestor = gestor;
-        this.rutaUsuarios = rutaUsuarios; // ✅ Asignás el parámetro recibido
+    public MenuOficialVentana(Oficial persona, GestorUsuarios gestorU, GestorCuarteles  gestorC,String rutaCuarteles, GestorCuarteles gestorC1, String rutaUsuarios) {
+        this.gestorU = gestorU;
+        this.gestorC = gestorC;
+        this.rutaUsuarios = rutaUsuarios;
+        this.rutaCuarteles = rutaCuarteles;
 
         setTitle("Menú Oficial");
         setSize(400, 350);
@@ -44,19 +50,29 @@ public class MenuOficialVentana extends JFrame {
         add(panel);
 
         botonGestionSoldado.addActionListener(e -> {
-            List<Soldado> soldados = gestor.getMilitares().stream()
+            List<Soldado> soldados = gestorU.getMilitares().stream()
                     .filter(m -> m instanceof Soldado)
                     .map(m -> (Soldado) m)
                     .toList();
 
-            OperacionesOficial sistema = new OperacionesOficial(soldados, gestor, rutaUsuarios); // ✅ Pasás todo
-            new VentanaGestionUsuarios(gestor, rutaUsuarios).setVisible(true);
+            OperacionesOficial sistema = new OperacionesOficial(soldados, gestorU, rutaUsuarios); // ✅ Pasás todo
+            new VentanaGestionUsuarios(gestorU, rutaUsuarios).setVisible(true);
 
 
         });
 
         botonGestionCuartel.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "Gestionando cuarteles (simulado)."));
+        {
+            List<Cuartel> cuarteles = gestorC.getCuarteles().stream()
+                    .filter(m -> m instanceof Cuartel)
+                    .map(m -> (Cuartel) m)
+                    .toList();
+
+            OperacionesOficial sistema = new OperacionesOficial(cuarteles, gestorC, rutaCuarteles); // ✅ Pasás todo
+            new VentanaGestionUsuarios(gestorC, rutaUsuarios).setVisible(true);
+
+
+        });
 
         botonGestionCompania.addActionListener(e ->
                 JOptionPane.showMessageDialog(this, "Gestionando compañías (simulado)."));
@@ -66,7 +82,7 @@ public class MenuOficialVentana extends JFrame {
 
         botonSalir.addActionListener(e -> {
             dispose();
-            new MenuLoginVentana(gestor, rutaUsuarios).setVisible(true); // ✅ Usás el constructor correcto
+            new MenuLoginVentana(gestorU, rutaUsuarios).setVisible(true); // ✅ Usás el constructor correcto
         });
     }
 }
