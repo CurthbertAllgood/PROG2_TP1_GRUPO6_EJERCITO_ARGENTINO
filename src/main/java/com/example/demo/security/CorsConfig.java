@@ -1,4 +1,4 @@
 package com.example.demo.security;
 
-public class SecurityConfig {
+public class CorsConfig {
 }
