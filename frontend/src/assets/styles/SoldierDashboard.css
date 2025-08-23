@@ -1,0 +1,43 @@
+/* src/assets/styles/SoldierDashboard.css */
+.soldier-dashboard h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+.soldier-info p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.servicios-section {
+  margin-top: 2rem;
+}
+
+.servicios-section h3 {
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.servicios-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.servicios-section li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.servicio-desc {
+  font-weight: 500;
+}
+
+.servicio-fecha {
+  font-style: italic;
+  color: #555;
+}
