@@ -25,7 +25,7 @@ export default function MilitaresPage() {
   const [companias, setCompanias] = useState([]);
   const [cuarteles, setCuarteles] = useState([]);
 
-  const canDelete = hasRole("OFICIAL"); // DELETE solo Oficial, POST/GET también Suboficial
+  const canDelete = hasRole("OFICIAL"); 
 
   const loadAll = async () => {
     setError(""); setMsg("");
@@ -122,7 +122,7 @@ export default function MilitaresPage() {
         </div>
 
         <small style={{ opacity: 0.75 }}>
-          Tip: luego de crear el militar, registrá el usuario con <code>/auth/register</code> usando el <b>id</b> devuelto como <code>personaId</code>.
+        
         </small>
       </form>
 

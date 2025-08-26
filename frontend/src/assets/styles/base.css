@@ -1,0 +1,224 @@
+@import "./tokens.css";
+
+/* ------------------------------
+   Reset suave + base tipografía
+------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* Titulares y texto */
+h1, h2, h3 { margin: 0 0 var(--sp-3); line-height: 1.2; }
+p { margin: 0 0 var(--sp-3); }
+
+/* Enlaces */
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ------------------------------
+   Utilidades de layout
+------------------------------ */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--sp-4);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ------------------------------
+   Botones
+------------------------------ */
+
+/* Base con buen contraste en light/dark */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: 120ms ease-in-out;
+}
+/* si el botón es <a> cancelamos el subrayado */
+a.btn { text-decoration: none; }
+.btn:hover {
+  box-shadow: var(--shadow-sm);
+  /* leve realce que respeta el tema */
+  background: color-mix(in oklab, var(--color-surface) 85%, #fff 15%);
+}
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+
+.btn-block { width: 100%; }
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: transparent;
+}
+.btn-primary:hover { background: var(--color-primary-600); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: color-mix(in oklab, var(--color-primary) 40%, var(--color-border));
+}
+.btn-outline:hover { background: var(--color-primary-50); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.btn-ghost:hover {
+  background: color-mix(in oklab, var(--color-primary-50) 30%, transparent);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  border-color: transparent;
+  color: #fff;
+}
+.btn-danger:hover { filter: brightness(.95); }
+
+/* ------------------------------
+   Badges
+------------------------------ */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+.badge-success { background: var(--color-success-50); color: var(--color-success); }
+.badge-danger  { background: var(--color-danger-50);  color: var(--color-danger); }
+.badge-warning { background: var(--color-warning-50); color: var(--color-warning); }
+.badge-primary { background: var(--color-primary-50); color: var(--color-primary); }
+
+/* ------------------------------
+   Toast (avisos)
+------------------------------ */
+.toast {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+}
+.toast-success { background:#e7ffef; border-color:#b7e3c6; color:#215b36; }
+.toast-error   { background:#ffe7e7; border-color:#e3b7b7; color:#5b2121; }
+
+/* ------------------------------
+   Formularios
+------------------------------ */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+  transition: 120ms;
+}
+input::placeholder, select::placeholder { color: var(--color-muted); }
+input:focus, select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 25%, transparent);
+}
+
+/* ------------------------------
+   Grid helpers
+------------------------------ */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+@media (max-width: 900px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+
+/* ===== Tablas base (ABM) ===== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.table th, .table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+.table thead th {
+  color: var(--color-muted);
+  font-weight: 700;
+  text-align: left;
+}
+.table tbody tr:hover {
+  background: color-mix(in oklab, var(--color-primary-50) 18%, transparent);
+}
+
+/* Celda acciones */
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ===== Formularios ===== */
+.form-grid {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 900px){ .form-grid { grid-template-columns: 1fr; } }
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: var(--sp-3);
+}
+
+.field-error {
+  margin-top: 6px;
+  font-size: var(--fs-sm);
+  color: var(--color-danger);
+}
+
+/* ===== Utilidades varias ===== */
+.section-title { margin-bottom: var(--sp-2); }
+.muted { color: var(--color-muted); }
+.skeleton {
+  height: 1em;
+  border-radius: 4px;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--color-surface) 85%, #fff 15%) 25%,
+    var(--color-surface) 37%,
+    color-mix(in oklab, var(--color-surface) 85%, #fff 15%) 63%);
+  background-size: 400% 100%;
+  animation: sk 1.2s ease-in-out infinite;
+}
+@keyframes sk { 0%{background-position:100% 0} 100%{background-position:0 0} }

@@ -1,30 +1,26 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/UserContext";
+import "../assets/styles/Navbar.css";
 
 export default function Navbar() {
-  const { user, logout, hasRole } = useAuth();
+  const { user, logout } = useAuth();
+
   return (
-    <nav style={{ display: "flex", gap: 16, padding: 12, borderBottom: "1px solid #ddd" }}>
+    <nav className="navbar">
       <Link to="/">Inicio</Link>
-      <Link to="/services">Servicios</Link>
-
-      {hasRole("SUBOFICIAL","OFICIAL") && (
-        <>
-          <Link to="/cuerpos">Cuerpos (ABM)</Link>
-          <Link to="/companias">Compañías (ABM)</Link>
-          <Link to="/cuarteles">Cuarteles (ABM)</Link>
-          <Link to="/militares">Militares (ABM)</Link>
-        </>
-      )}
-
-      <div style={{ marginLeft: "auto" }}>
+      <div className="navbar__right">
         {user ? (
           <>
-            <span style={{ marginRight: 12 }}>{user.username} — {user.role}</span>
-            <button onClick={logout}>Salir</button>
+            <span className="navbar__user">
+              {user.username} — {user.role}
+            </span>
+            <button className="btn btn-ghost" onClick={logout}>
+              Salir
+            </button>
           </>
-        ) : <Link to="/login">Login</Link>}
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </div>
     </nav>
   );
