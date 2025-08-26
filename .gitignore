@@ -1,22 +1,28 @@
-# IDE
+# Backend (Maven / Spring)
+target/
+*.iml
+*.log
+logs/
+out/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/MavenWrapperDownloader.java
+.mvn/wrapper/MavenWrapperDownloader.class
+# IDEs
 .idea/
-
-# Backend (Maven)
-backend/target/
+.vscode/
+*.swp
+# OS
+.DS_Store
 
 # Frontend (React)
-frontend/node_modules/
-frontend/build/
-
-# Varios
-*.log
-frontend/node_modules/
-frontend/build/
-backend/target/
-.idea/
-frontend/node_modules/
-frontend/build/
-frontend/.env
-backend/target/
-.idea/
-frontend_skel_backup/
+node_modules/
+build/
+dist/
+coverage/
+*.local
+*.cache
+# env
+.env
+.env.*
+!.env.example
