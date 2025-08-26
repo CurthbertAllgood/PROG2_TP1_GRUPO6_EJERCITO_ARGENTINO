@@ -11,6 +11,11 @@ import ServicesPages from "./pages/ServicesPages";
 import OfficialDashboard from "./pages/OfficialDashboard";
 import SuboficialDashboard from "./pages/SuboficialDashboard";
 import SoldierDashboard from "./pages/SoldierDashboard";
+import CuerposPage from "./pages/abm/CuerposPage";
+import CompaniasPage from "./pages/abm/CompaniasPage";
+import CuartelesPage from "./pages/abm/CuartelesPage";
+import MilitaresPage from "./pages/abm/MilitaresPage";
+
 
 function Forbidden() {
   return <div style={{ padding: 24 }}><h2>403 — No tenés permiso</h2></div>;
@@ -66,6 +71,38 @@ export default function App() {
             element={
               <ProtectedRoute roles={["SOLDADO","SUBOFICIAL","OFICIAL"]}>
                 <SoldierDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+           path="/militares"
+           element={
+            <ProtectedRoute roles={["SUBOFICIAL","OFICIAL"]}>
+                <MilitaresPage />
+            </ProtectedRoute>
+          }
+          />
+          <Route
+            path="/cuerpos"
+            element={
+              <ProtectedRoute roles={["SUBOFICIAL","OFICIAL"]}>
+                <CuerposPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/companias"
+            element={
+              <ProtectedRoute roles={["SUBOFICIAL","OFICIAL"]}>
+                <CompaniasPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cuarteles"
+            element={
+              <ProtectedRoute roles={["SUBOFICIAL","OFICIAL"]}>
+                <CuartelesPage />
               </ProtectedRoute>
             }
           />

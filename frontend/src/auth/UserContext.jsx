@@ -5,14 +5,17 @@ import { tokenStore } from "./http";
 const Ctx = createContext(null);
 export const useAuth = () => useContext(Ctx);
 
+// src/auth/UserContext.js (solo referencia: tu función ya estaba bien)
 function decodeJwt(t) {
   try {
     const payload = JSON.parse(atob(t.split(".")[1]));
-    return { username: payload.sub, role: payload.role, personaId: payload.personaId };
+    // personaId viene en el JWT desde el backend
+    return { username: payload.sub, role: payload.role, personaId: payload.personaId ?? null };
   } catch {
     return null;
   }
 }
+
 
 export function UserProvider({ children }) {
   const [token, setToken] = useState(tokenStore.get());

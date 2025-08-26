@@ -8,7 +8,16 @@ export default function Navbar() {
     <nav style={{ display: "flex", gap: 16, padding: 12, borderBottom: "1px solid #ddd" }}>
       <Link to="/">Inicio</Link>
       <Link to="/services">Servicios</Link>
-      {hasRole("SUBOFICIAL","OFICIAL") && <Link to="/cuerpos">Cuerpos (ABM)</Link>}
+
+      {hasRole("SUBOFICIAL","OFICIAL") && (
+        <>
+          <Link to="/cuerpos">Cuerpos (ABM)</Link>
+          <Link to="/companias">Compañías (ABM)</Link>
+          <Link to="/cuarteles">Cuarteles (ABM)</Link>
+          <Link to="/militares">Militares (ABM)</Link>
+        </>
+      )}
+
       <div style={{ marginLeft: "auto" }}>
         {user ? (
           <>
