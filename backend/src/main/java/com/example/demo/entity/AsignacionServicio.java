@@ -40,7 +40,7 @@ public class AsignacionServicio {
     @Column(name = "fecha_realizacion")
     private LocalDate fechaRealizacion;
 
-    // Auditoría básica (quién creó la asignación)
+
     @ManyToOne @JoinColumn(name = "registrado_por_usuario_id")
     private Usuario registradoPor;
 

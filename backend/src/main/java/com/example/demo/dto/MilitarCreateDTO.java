@@ -13,7 +13,7 @@ public class MilitarCreateDTO {
 
     @NotBlank private String codigoMilitar;
 
-    /** "SOLDADO" | "SUBOFICIAL" | "OFICIAL" */
+
     @NotBlank private String tipo;
 
     @NotNull private Long cuerpoId;

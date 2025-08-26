@@ -49,7 +49,7 @@ public class ServicioServiceImpl implements ServicioService {
     public ServicioDTO update(Long id, ServicioCreateDTO dto) {
         Servicio s = servicioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Servicio no encontrado"));
-        // si cambia el código, validá unicidad
+
         if (!s.getCodigo().equals(dto.getCodigo()) && servicioRepository.existsByCodigo(dto.getCodigo())) {
             throw new IllegalArgumentException("Ya existe un servicio con código " + dto.getCodigo());
         }

@@ -29,12 +29,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(AuthRequest req) {
-        // Autentica credenciales
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword())
         );
 
-        // Busca el usuario para obtener role y persona
         Usuario u = usuarioRepository.findByUsername(req.getUsername())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 

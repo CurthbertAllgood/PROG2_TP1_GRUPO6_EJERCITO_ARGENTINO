@@ -21,7 +21,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    /** Evitar filtrar /auth/** y OPTIONS (preflight CORS) */
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
@@ -52,7 +52,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Si no hay autenticación aún, validamos el token y seteamos el contexto
+ 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails;
             try {

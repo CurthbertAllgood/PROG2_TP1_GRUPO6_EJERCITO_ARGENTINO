@@ -25,7 +25,7 @@ public class Cuartel {
     @Column(nullable = false)
     private String ubicacion;
 
-    // Inversa de la relación con Compañía
+
     @ManyToMany(mappedBy = "cuarteles")
     private Set<Compania> companias = new HashSet<>();
 }

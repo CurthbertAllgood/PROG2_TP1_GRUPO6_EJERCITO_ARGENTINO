@@ -8,6 +8,6 @@ public class CompaniaDTO {
     private Long id;
     private Integer numero;
     private String actividadPrincipal;
-    private List<Long> cuartelIds;      // para ediciones futuras
-    private List<String> cuartelNombres; // para mostrar en listados
+    private List<Long> cuartelIds;
+    private List<String> cuartelNombres; 
 }

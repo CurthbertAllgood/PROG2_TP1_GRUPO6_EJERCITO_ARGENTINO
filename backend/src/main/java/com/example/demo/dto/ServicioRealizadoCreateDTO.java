@@ -9,5 +9,5 @@ import java.time.LocalDate;
 public class ServicioRealizadoCreateDTO {
     @NotNull private Long militarId;
     @NotNull private Long servicioId;
-    @NotNull private LocalDate fecha;   // formato ISO: yyyy-MM-dd
+    @NotNull private LocalDate fecha;   // yyyy-MM-dd
 }

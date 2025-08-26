@@ -8,6 +8,5 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Suboficial extends Militar {
-    // Puede administrar soldados y servicios
-    // Podés agregar lógica más adelante si es necesario
+
 }

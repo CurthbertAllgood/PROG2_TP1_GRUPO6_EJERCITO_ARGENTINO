@@ -8,6 +8,6 @@ import lombok.Data;
 public class RegisterRequest {
     @NotBlank private String username;
     @NotBlank private String password;
-    @NotNull  private Role role;      // SOLDADO/SUBOFICIAL/OFICIAL/CIVIL
-    @NotNull  private Long personaId; // id de Persona existente (Militar o Civil)
+    @NotNull  private Role role;
+    @NotNull  private Long personaId;
 }

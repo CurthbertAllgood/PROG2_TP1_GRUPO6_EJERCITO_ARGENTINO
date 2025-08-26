@@ -22,7 +22,7 @@ public class Compania {
     @Column(nullable = false)
     private String actividadPrincipal;
 
-    // Una compañía puede estar en varios cuarteles
+
     @ManyToMany
     @JoinTable(
             name = "compania_cuartel",

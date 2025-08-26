@@ -64,7 +64,7 @@ public class AsignacionServicioServiceImpl implements AsignacionServicioService 
     @Override
     public List<AsignacionDTO> listar(Long militarId, String estadoOpt, String actorRole, Long actorPersonaId) {
         if ("SOLDADO".equals(actorRole)) {
-            militarId = actorPersonaId; // soldado solo ve sus asignaciones
+            militarId = actorPersonaId;
         }
         List<AsignacionServicio> out;
         if (militarId != null && estadoOpt != null) {
@@ -83,13 +83,13 @@ public class AsignacionServicioServiceImpl implements AsignacionServicioService 
         AsignacionServicio a = repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Asignación no encontrada"));
 
-        // SOLDADO solo puede marcar realizadas sus propias asignaciones
+
         if ("SOLDADO".equals(actorRole) && !a.getMilitar().getId().equals(actorPersonaId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No podés modificar asignaciones de otro militar.");
         }
 
         if (a.getEstado() == Estado.REALIZADO) {
-            return mapper.toDTO(a); // idempotente
+            return mapper.toDTO(a);
         }
 
         LocalDate when = (fecha != null) ? fecha : LocalDate.now();
@@ -98,7 +98,7 @@ public class AsignacionServicioServiceImpl implements AsignacionServicioService 
         a = repo.save(a);
 
 
-// Histórico en ServicioRealizado (si no existe ya por unique)
+
         try {
             boolean yaExiste = realizadoRepo.existsByMilitarIdAndServicioIdAndFecha(
                     a.getMilitar().getId(),
@@ -113,7 +113,7 @@ public class AsignacionServicioServiceImpl implements AsignacionServicioService 
                 realizadoRepo.save(r);
             }
         } catch (org.springframework.dao.DataIntegrityViolationException ignore) {
-            // Si dos hilos llegan a la vez, la unique del DB nos protege; ignoramos el choque.
+
         }
 
         return mapper.toDTO(a);

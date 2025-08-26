@@ -8,6 +8,5 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Oficial extends Militar {
-    // Puede administrar todo
-    // Espacio para lógica futura (como reportes o auditoría)
+
 }

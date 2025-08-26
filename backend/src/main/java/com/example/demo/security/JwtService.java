@@ -21,7 +21,7 @@ public class JwtService {
         this.expirationMs = exp;
     }
 
-    /** Nuevo: personaId incluido en el JWT */
+
     public String generateToken(String username, String role, Long personaId) {
         var now = new Date();
         var exp = new Date(now.getTime() + expirationMs);
@@ -39,7 +39,7 @@ public class JwtService {
         return builder.compact();
     }
 
-    /** Compatibilidad si en algún punto lo seguías llamando sin personaId */
+
     @Deprecated
     public String generateToken(String username, String role) {
         return generateToken(username, role, null);
@@ -49,13 +49,13 @@ public class JwtService {
         return parse(token).getSubject();
     }
 
-    /** Útil si querés consultar el rol desde el filtro u otros lugares */
+
     public String extractRole(String token) {
         Object r = parse(token).get("role");
         return (r != null) ? r.toString() : null;
     }
 
-    /** Útil si querés leer personaId en el backend */
+
     public Long extractPersonaId(String token) {
         Object p = parse(token).get("personaId");
         if (p == null) return null;

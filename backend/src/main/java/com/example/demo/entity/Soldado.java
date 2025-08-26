@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Soldado extends Militar {
-    // Soldado solo puede consultar: no requiere atributos extra por ahora
+
 }

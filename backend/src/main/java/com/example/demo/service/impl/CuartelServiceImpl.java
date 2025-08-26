@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.CuartelCreateDTO;
 import com.example.demo.dto.CuartelDTO;
-import com.example.demo.entity.Compania;
 import com.example.demo.entity.Cuartel;
 import com.example.demo.mapper.CuartelMapper;
 import com.example.demo.repository.CompaniaRepository;

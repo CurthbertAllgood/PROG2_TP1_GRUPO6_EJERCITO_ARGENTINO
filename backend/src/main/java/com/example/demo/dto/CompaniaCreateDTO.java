@@ -9,6 +9,6 @@ import java.util.Set;
 public class CompaniaCreateDTO {
     @NotNull private Integer numero;
     @NotBlank private String actividadPrincipal;
-    // opcional: asociar cuarteles al crear/editar
+
     private Set<Long> cuartelIds;
 }

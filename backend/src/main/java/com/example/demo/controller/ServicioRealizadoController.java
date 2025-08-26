@@ -44,7 +44,7 @@ public class ServicioRealizadoController {
         if (desde != null && hasta != null) {
             return ResponseEntity.ok(service.findByFechaBetween(desde, hasta));
         }
-        // por simplicidad, si no hay filtros devolvemos vacío o podrías devolver todo
+
         return ResponseEntity.ok(List.of());
     }
 }

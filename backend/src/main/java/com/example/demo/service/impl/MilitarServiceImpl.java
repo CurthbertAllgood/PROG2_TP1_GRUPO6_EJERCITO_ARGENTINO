@@ -40,7 +40,6 @@ public class MilitarServiceImpl implements MilitarService {
     @Transactional
     @Override
     public MilitarDTO create(MilitarCreateDTO dto) {
-        // Validaciones básicas
         if (personaRepository.existsByDni(dto.getDni())) {
             throw new IllegalArgumentException("Ya existe una persona con DNI " + dto.getDni());
         }
@@ -48,7 +47,6 @@ public class MilitarServiceImpl implements MilitarService {
             throw new IllegalArgumentException("Ya existe un militar con código " + dto.getCodigoMilitar());
         }
 
-        // Cargar relaciones requeridas
         Cuerpo cuerpo = cuerpoRepository.findById(dto.getCuerpoId())
                 .orElseThrow(() -> new EntityNotFoundException("Cuerpo no encontrado"));
         Compania compania = companiaRepository.findById(dto.getCompaniaId())
@@ -56,7 +54,6 @@ public class MilitarServiceImpl implements MilitarService {
         Cuartel cuartel = cuartelRepository.findById(dto.getCuartelId())
                 .orElseThrow(() -> new EntityNotFoundException("Cuartel no encontrado"));
 
-        // Instanciar la subclase correcta
         Militar militar = switch (dto.getTipo().toUpperCase()) {
             case "SOLDADO" -> new Soldado();
             case "SUBOFICIAL" -> new Suboficial();
@@ -64,7 +61,6 @@ public class MilitarServiceImpl implements MilitarService {
             default -> throw new IllegalArgumentException("Tipo inválido: " + dto.getTipo());
         };
 
-        // Poblar datos comunes
         militar.setNombre(dto.getNombre());
         militar.setApellido(dto.getApellido());
         militar.setDni(dto.getDni());

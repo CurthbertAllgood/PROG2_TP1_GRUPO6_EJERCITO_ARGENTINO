@@ -10,6 +10,5 @@ public class CuartelCreateDTO {
     @NotBlank private String nombre;
     @NotBlank private String ubicacion;
 
-    // opcional: asociar compañías al crear/editar
     private Set<Long> companiaIds;
 }

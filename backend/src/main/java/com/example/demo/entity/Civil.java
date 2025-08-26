@@ -15,5 +15,5 @@ public class Civil extends Persona {
     public Long getId() {
         return id;
     }
-    // Solo datos básicos por ahora
+
 }
