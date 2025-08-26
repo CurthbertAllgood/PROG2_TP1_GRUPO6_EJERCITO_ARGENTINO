@@ -1,0 +1,96 @@
+@import './variables.css';
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--background);
+}
+
+.split-login {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(255,255,255,0.85));
+}
+
+/* Panel izquierdo con imagen institucional */
+.login-left-panel {
+  flex: 1;
+  background: url('../images/ejercito-bg.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.login-left-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6), transparent); /* Degradado hacia la derecha */
+}
+
+/* Panel derecho con formulario */
+.login-right-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  padding: 2rem;
+}
+
+/* Formulario */
+.login-form {
+  background-color: white;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  color: var(--text);
+}
+
+.login-form input {
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.login-form input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.login-form button {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.login-form button:hover {
+  background-color: var(--primary-dark);
+}
+
+.login-error {
+  color: #b71c1c;
+  background-color: #fdecea;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+}

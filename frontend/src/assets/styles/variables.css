@@ -1,0 +1,10 @@
+/* src/assets/styles/variables.css */
+:root {
+  --primary: #b71c1c;
+  --primary-dark: #7f0000;
+  --background: #f0f2f5;
+  --text: #333;
+  --link-color: #61dafb;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --dark-bg: #282c34;
+}
