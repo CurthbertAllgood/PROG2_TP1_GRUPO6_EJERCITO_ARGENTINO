@@ -3,10 +3,9 @@
 Usuarios disponibles:
 
 
-usuario1 -> 123 (soldado)
+soldado_ortiz -> 123 (soldado)
 
-usuario2 -> 456 (suboficial)
+SUBOFICIAL_GARCIA -> 1234 (suboficial)
 
-usuario3 -> 789 (oficial)
+jefe -> jefe123 (oficial)
 
-usuario4 -> 000 (civil)
